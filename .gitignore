@@ -1,0 +1,6 @@
+*_
+*.BAK
+*~
+composer.phar
+vendor/*
+.idea.txt

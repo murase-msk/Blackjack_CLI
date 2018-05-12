@@ -1,0 +1,15 @@
+{
+    "name": "vagrant/blackjack_cli",
+    "description": "blackjack game",
+    "type": "project",
+    "license": "MIT",
+    "require": {},
+    "require-dev": {
+      "squizlabs/php_codesniffer": "2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "src\\": "src/"
+        }
+    }
+}

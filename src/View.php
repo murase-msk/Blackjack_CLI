@@ -11,11 +11,7 @@ class View
 {
     /**
      * ウェルカムページの表示する
-     * @since
-     * @param
      * @return 's':ゲーム画面へ, 'q':ゲーム終了
-     * @throws
-     *
      */
     public function welcomePage() : string
     {
@@ -59,36 +55,57 @@ class View
      */
     public function bothHand(array $dealerHand, array $playerHand) : void
     {
-        $dealerHandString = "";
-        foreach ($dealerHand as $key => $hand) {
+        echo '-------------' . PHP_EOL;
+        echo 'Dealer: ' . $this->returnHandText('Dealer', $dealerHand) . PHP_EOL;
+        echo 'Player: ' . $this->returnHandText('Player', $playerHand) . PHP_EOL;
+        echo '-------------' . PHP_EOL;
+    }
+
+    /**
+     * ,プレイヤーのハンドを表示する
+     *
+     * @param array $playerHand
+     * @return void
+     */
+    public function playerHand(array $playerHand) : void
+    {
+        echo '-------------' . PHP_EOL;
+        echo 'Player: ' . $this->returnHandText('Player', $playerHand) . PHP_EOL;
+        echo '-------------' . PHP_EOL;
+    }
+
+    /**
+     * ハンドをテキスト形式で返す
+     *
+     * @param string $name 表示する名前（Dealer or Player）
+     * @param array $hand ハンド
+     * @return string
+     */
+    private function returnHandText(string $name, array $oneHand) : string
+    {
+        $handString = "";
+        foreach ($oneHand as $key => $hand) {
             if ($hand['isFaceUp'] === true) {
-                $dealerHandString .= $hand['mark'] . ":" . $hand['number'] . ', ';
+                $handString .= $hand['mark'] . ":" . $hand['number'] . ', ';
             } else {
-                $dealerHandString .= "blank, ";
+                $handString .= "blank, ";
             }
         }
-        $dealerHandString = substr($dealerHandString, 0, -2);
-        $playerHandString = "";
-        foreach ($playerHand as $key => $hand) {
-            $playerHandString .= $hand['mark'] . ":" . $hand['number'] . ', ';
-        }
-        $playerHandString = substr($playerHandString, 0, -2);
-        echo '-------------' . PHP_EOL;
-        echo 'Dealer: ' . $dealerHandString . PHP_EOL;
-        echo 'Player: ' . $playerHandString . PHP_EOL;
-        echo '-------------' . PHP_EOL;
+        $handString = substr($handString, 0, -2);
+        return $handString;
     }
 
     /**
      * 操作の説明画面を表示する
      * @param void
-     * @return string
+     * @return string 入力文字
      */
     public function operation() : string
     {
         echo '-------------' . PHP_EOL;
         echo 's: Stand, h: Hit, e:Surrender' . PHP_EOL;
         echo '-------------' . PHP_EOL;
+        echo 'Input your next command: ';
         $nextOperation = trim(fgets(STDIN));
         return $nextOperation;
     }
@@ -109,17 +126,31 @@ class View
     }
 
     /**
-     * プレイヤー・ディーラーの手札から結果を表示する
-     * @param int
-     * @param int
+     * バーストとなった画面
+     *
+     * @param integer $playerValue プレイヤーのハンドの合計値
      * @return void
      */
-    public function result(int $dealerValue, int $playerValue) : void
+    public function burst(int $playerValue) : void
+    {
+        echo 'Your hand is burst' . PHP_EOL;
+        echo 'Player: ' . $playerValue . PHP_EOL;
+    }
+
+    /**
+     * プレイヤー・ディーラーの手札から結果を表示する
+     *
+     * @param integer $dealerValue
+     * @param integer $playerValue
+     * @param integer $result
+     * @return void
+     */
+    public function result(int $dealerValue, int $playerValue, int $result) : void
     {
         echo 'Dealer:' . $dealerValue . 'Plauer: ' . $playerValue . PHP_EOL;
-        if ($dealerValue > $playerValue) {
+        if ($result === -1) {
             echo 'Dealer Win' . PHP_EOL;
-        } elseif ($dealerValue < $playerValue) {
+        } elseif (result === 1) {
             echo 'Player Win' . PHP_EOL;
         } else {
             echo 'Draw' . PHP_EOL;
@@ -135,7 +166,7 @@ class View
     public function isNext() : string
     {
         echo '-------------' . PHP_EOL;
-        echo '"o":Once again, "q":Quit game' . PHP_EOL;
+        echo '"c":Continue, "q":Quit game' . PHP_EOL;
         echo '-------------' . PHP_EOL;
         $nextOperation = trim(fgets(STDIN));
         return $nextOperation;

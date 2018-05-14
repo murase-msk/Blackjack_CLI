@@ -39,12 +39,15 @@ class Man
      * カードを１枚受け取る
      * ２１を超えたらバースト
      *
-     * @return bool
+     * @param array $card 受け取ったカード
+     * @param bool $isFaceUp
+     * @return bool バーストしたかどうか
      */
-    public function hit(array $card) : boolean
+    public function hit(array $card, bool $isFaceUp) : bool
     {
+        $card['isFaceUp'] = $isFaceUp;
         $this->hand[] = $card;
-        $isBurst = evaluateHand() < 0 ? true : false;
+        $isBurst = $this->evaluateHand() < 0 ? true : false;
         return $isBurst;
     }
 

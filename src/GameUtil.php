@@ -96,4 +96,22 @@ class GameUtil
 //        var_dump($pickCard);
         return $pickCard;
     }
+
+    /**
+     * プレイヤー側が勝利したか
+     *
+     * @param integer $playerValue
+     * @param integer $dealerValue
+     * @return boolean -1:ディーラー勝利, 1:プレイヤー勝利, 0:引き分け
+     */
+    public function isPlayerWin(int $dealerValue, int $playerValue) : int
+    {
+        if ($dealerValue > $playerValue) {
+            return -1;
+        } elseif ($dealerValue < $playerValue) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }

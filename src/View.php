@@ -6,15 +6,6 @@ namespace src;
 
 /**
  * 画面の表示に関するクラス
- *
- * @package Hoge
- * @method
- * @property
- * @uses
- * @version
- *
- * @xample
- * @typedef
  */
 class View
 {
@@ -61,15 +52,30 @@ class View
     }
 
     /**
-     * プレイヤー、ディーラーのハンドを表示する
-     * @param void
+     * ディーラー,プレイヤーのハンドを表示する
+     * @param array ディーラーのハンド
+     * @param array プレイヤーのハンド
      * @return void
      */
-    public function bothHand() : void
+    public function bothHand(array $dealerHand, array $playerHand) : void
     {
+        $dealerHandString = "";
+        foreach ($dealerHand as $key => $hand) {
+            if ($hand['isFaceUp'] === true) {
+                $dealerHandString .= $hand['mark'] . ":" . $hand['number'] . ', ';
+            } else {
+                $dealerHandString .= "blank, ";
+            }
+        }
+        $dealerHandString = substr($dealerHandString, 0, -2);
+        $playerHandString = "";
+        foreach ($playerHand as $key => $hand) {
+            $playerHandString .= $hand['mark'] . ":" . $hand['number'] . ', ';
+        }
+        $playerHandString = substr($playerHandString, 0, -2);
         echo '-------------' . PHP_EOL;
-        echo 'Dealer: xxx, xxx' . PHP_EOL;
-        echo 'Player: xxx, xxx' . PHP_EOL;
+        echo 'Dealer: ' . $dealerHandString . PHP_EOL;
+        echo 'Player: ' . $playerHandString . PHP_EOL;
         echo '-------------' . PHP_EOL;
     }
 
@@ -88,13 +94,36 @@ class View
     }
 
     /**
-     * プレイヤー・ディーラーの手札から結果を表示する
-     * @param void
+     * ディーラーの裏向きのカードを表示する
+     *
+     * @param array $dealerHand
      * @return void
      */
-    public function result() : void
+    public function openBlankCard(array $dealerHand) : void
     {
-        echo 'result' . PHP_EOL;
+        foreach ($dealerHand as $key => $card) {
+            if ($card['isFaceUp'] === false) {
+                echo 'Blank Card: ' . $card['mark'] . ':' . $card['number'] . PHP_EOL;
+            }
+        }
+    }
+
+    /**
+     * プレイヤー・ディーラーの手札から結果を表示する
+     * @param int
+     * @param int
+     * @return void
+     */
+    public function result(int $dealerValue, int $playerValue) : void
+    {
+        echo 'Dealer:' . $dealerValue . 'Plauer: ' . $playerValue . PHP_EOL;
+        if ($dealerValue > $playerValue) {
+            echo 'Dealer Win' . PHP_EOL;
+        } elseif ($dealerValue < $playerValue) {
+            echo 'Player Win' . PHP_EOL;
+        } else {
+            echo 'Draw' . PHP_EOL;
+        }
     }
 
     /**

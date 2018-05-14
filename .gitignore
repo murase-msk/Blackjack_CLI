@@ -5,3 +5,4 @@ composer.phar
 vendor/*
 .idea.txt
 .todo.txt
+public/doc

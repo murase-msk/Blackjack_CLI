@@ -5,7 +5,9 @@
     "license": "MIT",
     "require": {},
     "require-dev": {
-      "squizlabs/php_codesniffer": "3.2.3"
+      "squizlabs/php_codesniffer": "3.2.3",
+        "phpdocumentor/phpdocumentor": "^2.9",
+        "symfony/console": "*"
     },
     "autoload": {
         "psr-4": {

@@ -7,11 +7,19 @@
     "require-dev": {
       "squizlabs/php_codesniffer": "3.2.3",
         "phpdocumentor/phpdocumentor": "^2.9",
-        "symfony/console": "*"
+        "symfony/console": "*",
+        "phpunit/phpunit": "^7"
     },
     "autoload": {
         "psr-4": {
-            "src\\": "src/"
+            "src\\": "src/",
+            "vendor\\": "vedor/",
+            "PHPUnit\\": "vendor/phpunit/phpunit/src"
         }
+    },
+    "scripts": {
+      "test": [
+        "./vendor/bin/phpunit --bootstrap ./vendor/autoload.php --testdox test/"
+      ]
     }
 }

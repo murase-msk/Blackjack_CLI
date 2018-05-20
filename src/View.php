@@ -13,7 +13,7 @@ class View
      * ウェルカムページの表示する
      * @return 's':ゲーム画面へ, 'q':ゲーム終了
      */
-    public function welcomePage() : string
+    public static function welcomePage() : string
     {
         echo '$$$$$$$$$$$$$$$$$$$$$$$$$$' . PHP_EOL;
         echo 'Welcome to Blackjack Game' . PHP_EOL;
@@ -30,7 +30,7 @@ class View
      * @param $cash 手持ちのお金
      * @return void
      */
-    public function cash(int $cash) : void
+    public static function cash(int $cash) : void
     {
         echo 'Your cash: ' . $cash . PHP_EOL;
     }
@@ -40,7 +40,7 @@ class View
      * @param void
      * @return int ベットする金額
      */
-    public function betOperation() : int
+    public static function betOperation() : int
     {
         echo 'Input Bet ';
         $bet = trim(fgets(STDIN));
@@ -53,24 +53,28 @@ class View
      * @param array プレイヤーのハンド
      * @return void
      */
-    public function bothHand(array $dealerHand, array $playerHand) : void
-    {
+    public static function bothHand(
+        array $dealerHand,
+        array $playerHand,
+        int $dealerTotal,
+        int $playerTotal
+    ) : void {
         echo '-------------' . PHP_EOL;
-        echo 'Dealer: ' . $this->returnHandText('Dealer', $dealerHand) . PHP_EOL;
-        echo 'Player: ' . $this->returnHandText('Player', $playerHand) . PHP_EOL;
+        echo 'Dealer:' . View::returnHandText($dealerHand) . PHP_EOL;
+        echo 'Player:' . View::returnHandText($playerHand) . ' (total ' . $playerTotal . ')' . PHP_EOL;
         echo '-------------' . PHP_EOL;
     }
 
     /**
-     * ,プレイヤーのハンドを表示する
+     * ,ハンドを表示する
      *
      * @param array $playerHand
      * @return void
      */
-    public function playerHand(array $playerHand) : void
+    public static function displayHand(array $hand, string $name, int $total) : void
     {
         echo '-------------' . PHP_EOL;
-        echo 'Player: ' . $this->returnHandText('Player', $playerHand) . PHP_EOL;
+        echo '' . $name . ': total ' . $total . ' :' . View::returnHandText($hand) . PHP_EOL;
         echo '-------------' . PHP_EOL;
     }
 
@@ -81,11 +85,25 @@ class View
      * @param array $hand ハンド
      * @return string
      */
-    private function returnHandText(string $name, array $oneHand) : string
+    private static function returnHandText(array $oneHand) : string
     {
         $handString = "";
         foreach ($oneHand as $key => $hand) {
             if ($hand['isFaceUp'] === true) {
+                switch ($hand['number']) {
+                    case GameUtil::ACE:
+                        $hand['number'] = 'A';
+                        break;
+                    case GameUtil::JACK:
+                        $hand['number'] = 'J';
+                        break;
+                    case GameUtil::QUEEN:
+                        $hand['number'] = 'Q';
+                        break;
+                    case GameUtil::KING:
+                        $hand['number'] = 'K';
+                        break;
+                }
                 $handString .= $hand['mark'] . ":" . $hand['number'] . ', ';
             } else {
                 $handString .= "blank, ";
@@ -100,7 +118,7 @@ class View
      * @param void
      * @return string 入力文字
      */
-    public function operation() : string
+    public static function operation() : string
     {
         echo '-------------' . PHP_EOL;
         echo 's: Stand, h: Hit, e:Surrender' . PHP_EOL;
@@ -116,7 +134,7 @@ class View
      * @param array $dealerHand
      * @return void
      */
-    public function openBlankCard(array $dealerHand) : void
+    public static function openBlankCard(array $dealerHand) : void
     {
         foreach ($dealerHand as $key => $card) {
             if ($card['isFaceUp'] === false) {
@@ -131,7 +149,7 @@ class View
      * @param integer $playerValue プレイヤーのハンドの合計値
      * @return void
      */
-    public function burst(int $playerValue) : void
+    public static function burst(int $playerValue) : void
     {
         echo 'Your hand is burst' . PHP_EOL;
         echo 'Player: ' . $playerValue . PHP_EOL;
@@ -145,12 +163,17 @@ class View
      * @param integer $result
      * @return void
      */
-    public function result(int $dealerValue, int $playerValue, int $result) : void
+    public static function result(int $dealerValue, int $playerValue, int $result) : void
     {
-        echo 'Dealer:' . $dealerValue . 'Plauer: ' . $playerValue . PHP_EOL;
+        if ($dealerValue === -1) {
+            $dealerValue = 'Burst';
+        } elseif ($playerValue === -1) {
+            $playerValue = 'Burst';
+        }
+        echo 'Dealer:' . $dealerValue . ' Plauer: ' . $playerValue . PHP_EOL;
         if ($result === -1) {
             echo 'Dealer Win' . PHP_EOL;
-        } elseif (result === 1) {
+        } elseif ($result === 1) {
             echo 'Player Win' . PHP_EOL;
         } else {
             echo 'Draw' . PHP_EOL;
@@ -163,7 +186,7 @@ class View
      * @param
      * @return
      */
-    public function isNext() : string
+    public static function isNext() : string
     {
         echo '-------------' . PHP_EOL;
         echo '"c":Continue, "q":Quit game' . PHP_EOL;

@@ -18,8 +18,14 @@
         }
     },
     "scripts": {
+      "start":[
+        "php ./src/main.php"
+      ],
       "test": [
         "./vendor/bin/phpunit --bootstrap ./vendor/autoload.php --testdox test/"
+      ],
+      "reload": [
+        "composer dumpautoload"
       ]
     }
 }

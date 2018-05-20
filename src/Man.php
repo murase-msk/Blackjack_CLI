@@ -29,10 +29,10 @@ class Man
      *
      * @return void
      */
-    public function stand()
-    {
-        return;
-    }
+    // public function stand()
+    // {
+    //     return;
+    // }
 
     /**
      * ヒットする
@@ -41,14 +41,13 @@ class Man
      *
      * @param array $card 受け取ったカード
      * @param bool $isFaceUp
-     * @return bool バーストしたかどうか
+     * @return bool 成功したか
      */
     public function hit(array $card, bool $isFaceUp) : bool
     {
-        $card['isFaceUp'] = $isFaceUp;
-        $this->hand[] = $card;
-        $isBurst = $this->evaluateHand() < 0 ? true : false;
-        return $isBurst;
+        $this->receiveOneCard($card, $isFaceUp);
+        $isSuccess = $this->evaluateHand() < 0 ? false : true;
+        return $isSuccess;
     }
 
     /**
@@ -72,9 +71,16 @@ class Man
      */
     public function evaluateHand() : int
     {
+        // ACEは21を超えていなければ11, そうでなければ1.
         $handValue = 0;
         foreach ($this->hand as $key => $card) {
-            $handValue += $card['number'] > 10 ? 10 : $card['number'];
+            $handValue += $card['number'] > GameUtil::TEN ? GameUtil::TEN : $card['number'];
+        }
+        // エースを11とみなしてもバーストしなければエースを11とする.
+        foreach ($this->hand as $key => $card) {
+            if ($card['number'] === GameUtil::ACE && $handValue + 10 <= 21) {
+                $handValue += 10;   // 1はすでに足しているので10を足す.
+            }
         }
         if ($handValue > 21) {
             return -1;

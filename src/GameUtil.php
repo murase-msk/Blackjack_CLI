@@ -9,6 +9,23 @@ namespace src;
  */
 class GameUtil
 {
+    const CLUB = 'club';
+    const DIAMOND = 'diamond';
+    const HEART = 'heart';
+    const SPADE = 'spade';
+    const ACE = 1;
+    const TWO = 2;
+    const THREE = 3;
+    const FOUR = 4;
+    const FIVE = 5;
+    const SIX = 6;
+    const SEVEN = 7;
+    const EIGHT = 8;
+    const NINE = 9;
+    const TEN = 10;
+    const JACK = 11;
+    const QUEEN = 12;
+    const KING = 13;
     /** @var array{
      *      @type array{
      *          'mark': string マーク
@@ -17,58 +34,58 @@ class GameUtil
      *          }
      *      } 1デッキ内のカード*/
     const ONE_DECK = [
-        ['mark' => 'club', 'number' => 1, 'isFaceUp' => false],
-        ['mark' => 'club', 'number' => 2, 'isFaceUp' => false],
-        ['mark' => 'club', 'number' => 3, 'isFaceUp' => false],
-        ['mark' => 'club', 'number' => 4, 'isFaceUp' => false],
-        ['mark' => 'club', 'number' => 5, 'isFaceUp' => false],
-        ['mark' => 'club', 'number' => 6, 'isFaceUp' => false],
-        ['mark' => 'club', 'number' => 7, 'isFaceUp' => false],
-        ['mark' => 'club', 'number' => 8, 'isFaceUp' => false],
-        ['mark' => 'club', 'number' => 9, 'isFaceUp' => false],
-        ['mark' => 'club', 'number' => 10, 'isFaceUp' => false],
-        ['mark' => 'club', 'number' => 11, 'isFaceUp' => false],
-        ['mark' => 'club', 'number' => 12, 'isFaceUp' => false],
-        ['mark' => 'club', 'number' => 13, 'isFaceUp' => false],
-        ['mark' => 'diamond', 'number' => 1, 'isFaceUp' => false],
-        ['mark' => 'diamond', 'number' => 2, 'isFaceUp' => false],
-        ['mark' => 'diamond', 'number' => 3, 'isFaceUp' => false],
-        ['mark' => 'diamond', 'number' => 4, 'isFaceUp' => false],
-        ['mark' => 'diamond', 'number' => 5, 'isFaceUp' => false],
-        ['mark' => 'diamond', 'number' => 6, 'isFaceUp' => false],
-        ['mark' => 'diamond', 'number' => 7, 'isFaceUp' => false],
-        ['mark' => 'diamond', 'number' => 8, 'isFaceUp' => false],
-        ['mark' => 'diamond', 'number' => 9, 'isFaceUp' => false],
-        ['mark' => 'diamond', 'number' => 10, 'isFaceUp' => false],
-        ['mark' => 'diamond', 'number' => 11, 'isFaceUp' => false],
-        ['mark' => 'diamond', 'number' => 12, 'isFaceUp' => false],
-        ['mark' => 'diamond', 'number' => 13, 'isFaceUp' => false],
-        ['mark' => 'heart', 'number' => 1, 'isFaceUp' => false],
-        ['mark' => 'heart', 'number' => 2, 'isFaceUp' => false],
-        ['mark' => 'heart', 'number' => 3, 'isFaceUp' => false],
-        ['mark' => 'heart', 'number' => 4, 'isFaceUp' => false],
-        ['mark' => 'heart', 'number' => 5, 'isFaceUp' => false],
-        ['mark' => 'heart', 'number' => 6, 'isFaceUp' => false],
-        ['mark' => 'heart', 'number' => 7, 'isFaceUp' => false],
-        ['mark' => 'heart', 'number' => 8, 'isFaceUp' => false],
-        ['mark' => 'heart', 'number' => 9, 'isFaceUp' => false],
-        ['mark' => 'heart', 'number' => 10, 'isFaceUp' => false],
-        ['mark' => 'heart', 'number' => 11, 'isFaceUp' => false],
-        ['mark' => 'heart', 'number' => 12, 'isFaceUp' => false],
-        ['mark' => 'heart', 'number' => 13, 'isFaceUp' => false],
-        ['mark' => 'spade', 'number' => 1, 'isFaceUp' => false],
-        ['mark' => 'spade', 'number' => 2, 'isFaceUp' => false],
-        ['mark' => 'spade', 'number' => 3, 'isFaceUp' => false],
-        ['mark' => 'spade', 'number' => 4, 'isFaceUp' => false],
-        ['mark' => 'spade', 'number' => 5, 'isFaceUp' => false],
-        ['mark' => 'spade', 'number' => 6, 'isFaceUp' => false],
-        ['mark' => 'spade', 'number' => 7, 'isFaceUp' => false],
-        ['mark' => 'spade', 'number' => 8, 'isFaceUp' => false],
-        ['mark' => 'spade', 'number' => 9, 'isFaceUp' => false],
-        ['mark' => 'spade', 'number' => 10, 'isFaceUp' => false],
-        ['mark' => 'spade', 'number' => 11, 'isFaceUp' => false],
-        ['mark' => 'spade', 'number' => 12, 'isFaceUp' => false],
-        ['mark' => 'spade', 'number' => 13, 'isFaceUp' => false],
+        ['mark' => GameUtil::CLUB, 'number' => GameUtil::ACE, 'isFaceUp' => false],
+        ['mark' => GameUtil::CLUB, 'number' => GameUtil::TWO, 'isFaceUp' => false],
+        ['mark' => GameUtil::CLUB, 'number' => GameUtil::THREE, 'isFaceUp' => false],
+        ['mark' => GameUtil::CLUB, 'number' => GameUtil::FOUR, 'isFaceUp' => false],
+        ['mark' => GameUtil::CLUB, 'number' => GameUtil::FIVE, 'isFaceUp' => false],
+        ['mark' => GameUtil::CLUB, 'number' => GameUtil::SIX, 'isFaceUp' => false],
+        ['mark' => GameUtil::CLUB, 'number' => GameUtil::SEVEN, 'isFaceUp' => false],
+        ['mark' => GameUtil::CLUB, 'number' => GameUtil::EIGHT, 'isFaceUp' => false],
+        ['mark' => GameUtil::CLUB, 'number' => GameUtil::NINE, 'isFaceUp' => false],
+        ['mark' => GameUtil::CLUB, 'number' => GameUtil::TEN, 'isFaceUp' => false],
+        ['mark' => GameUtil::CLUB, 'number' => GameUtil::JACK, 'isFaceUp' => false],
+        ['mark' => GameUtil::CLUB, 'number' => GameUtil::QUEEN, 'isFaceUp' => false],
+        ['mark' => GameUtil::CLUB, 'number' => GameUtil::KING, 'isFaceUp' => false],
+        ['mark' => GameUtil::DIAMOND, 'number' => GameUtil::ACE, 'isFaceUp' => false],
+        ['mark' => GameUtil::DIAMOND, 'number' => GameUtil::TWO, 'isFaceUp' => false],
+        ['mark' => GameUtil::DIAMOND, 'number' => GameUtil::THREE, 'isFaceUp' => false],
+        ['mark' => GameUtil::DIAMOND, 'number' => GameUtil::FOUR, 'isFaceUp' => false],
+        ['mark' => GameUtil::DIAMOND, 'number' => GameUtil::FIVE, 'isFaceUp' => false],
+        ['mark' => GameUtil::DIAMOND, 'number' => GameUtil::SIX, 'isFaceUp' => false],
+        ['mark' => GameUtil::DIAMOND, 'number' => GameUtil::SEVEN, 'isFaceUp' => false],
+        ['mark' => GameUtil::DIAMOND, 'number' => GameUtil::EIGHT, 'isFaceUp' => false],
+        ['mark' => GameUtil::DIAMOND, 'number' => GameUtil::NINE, 'isFaceUp' => false],
+        ['mark' => GameUtil::DIAMOND, 'number' => GameUtil::TEN, 'isFaceUp' => false],
+        ['mark' => GameUtil::DIAMOND, 'number' => GameUtil::JACK, 'isFaceUp' => false],
+        ['mark' => GameUtil::DIAMOND, 'number' => GameUtil::QUEEN, 'isFaceUp' => false],
+        ['mark' => GameUtil::DIAMOND, 'number' => GameUtil::KING, 'isFaceUp' => false],
+        ['mark' => GameUtil::HEART, 'number' => GameUtil::ACE, 'isFaceUp' => false],
+        ['mark' => GameUtil::HEART, 'number' => GameUtil::TWO, 'isFaceUp' => false],
+        ['mark' => GameUtil::HEART, 'number' => GameUtil::THREE, 'isFaceUp' => false],
+        ['mark' => GameUtil::HEART, 'number' => GameUtil::FOUR, 'isFaceUp' => false],
+        ['mark' => GameUtil::HEART, 'number' => GameUtil::FIVE, 'isFaceUp' => false],
+        ['mark' => GameUtil::HEART, 'number' => GameUtil::SIX, 'isFaceUp' => false],
+        ['mark' => GameUtil::HEART, 'number' => GameUtil::SEVEN, 'isFaceUp' => false],
+        ['mark' => GameUtil::HEART, 'number' => GameUtil::EIGHT, 'isFaceUp' => false],
+        ['mark' => GameUtil::HEART, 'number' => GameUtil::NINE, 'isFaceUp' => false],
+        ['mark' => GameUtil::HEART, 'number' => GameUtil::TEN, 'isFaceUp' => false],
+        ['mark' => GameUtil::HEART, 'number' => GameUtil::JACK, 'isFaceUp' => false],
+        ['mark' => GameUtil::HEART, 'number' => GameUtil::QUEEN, 'isFaceUp' => false],
+        ['mark' => GameUtil::HEART, 'number' => GameUtil::KING, 'isFaceUp' => false],
+        ['mark' => GameUtil::SPADE, 'number' => GameUtil::ACE, 'isFaceUp' => false],
+        ['mark' => GameUtil::SPADE, 'number' => GameUtil::TWO, 'isFaceUp' => false],
+        ['mark' => GameUtil::SPADE, 'number' => GameUtil::THREE, 'isFaceUp' => false],
+        ['mark' => GameUtil::SPADE, 'number' => GameUtil::FOUR, 'isFaceUp' => false],
+        ['mark' => GameUtil::SPADE, 'number' => GameUtil::FIVE, 'isFaceUp' => false],
+        ['mark' => GameUtil::SPADE, 'number' => GameUtil::SIX, 'isFaceUp' => false],
+        ['mark' => GameUtil::SPADE, 'number' => GameUtil::SEVEN, 'isFaceUp' => false],
+        ['mark' => GameUtil::SPADE, 'number' => GameUtil::EIGHT, 'isFaceUp' => false],
+        ['mark' => GameUtil::SPADE, 'number' => GameUtil::NINE, 'isFaceUp' => false],
+        ['mark' => GameUtil::SPADE, 'number' => GameUtil::TEN, 'isFaceUp' => false],
+        ['mark' => GameUtil::SPADE, 'number' => GameUtil::JACK, 'isFaceUp' => false],
+        ['mark' => GameUtil::SPADE, 'number' => GameUtil::QUEEN, 'isFaceUp' => false],
+        ['mark' => GameUtil::SPADE, 'number' => GameUtil::KING, 'isFaceUp' => false],
     ];
 
     /** @var string[] 山札*/
@@ -90,7 +107,7 @@ class GameUtil
      */
     public function pickOneCard() : array
     {
-        $pickIndex = rand(0, count($this->stock));
+        $pickIndex = rand(0, count($this->stock) - 1);
         $pickCard = $this->stock[$pickIndex];
         array_splice($this->stock, $pickIndex, 1);
 //        var_dump($pickCard);

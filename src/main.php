@@ -11,64 +11,68 @@ use src\GameUtil;
 use src\Player;
 use src\Delaer;
 
-$view = new View();
+//$view = new View();
 $gameUtil = new GameUtil();
 $player = new Player();
-$dealer = new Dealer();
+$dealer = new Dealer($gameUtil);
 
 while (true) {
     // メイン画面.
-    $command = $view->welcomePage();
+    $command = View::welcomePage();
 
     if ($command === 's') {
         while (true) {
             // キャッシュ表示.
-            $view->cash(-1);
+            View::cash(-1);
             // ベット処理.
-            $view->betOperation();
+            View::betOperation();
             // ディーラーは１枚表１枚裏、プレイヤーは２枚とも表.
             $dealer->receiveOneCard($gameUtil->pickOneCard(), true);
             $dealer->receiveOneCard($gameUtil->pickOneCard(), false);
             $player->receiveOneCard($gameUtil->pickOneCard(), true);
             $player->receiveOneCard($gameUtil->pickOneCard(), true);
             // 最初の2枚のカードを表示する.
-            $view->bothHand($dealer->hand, $player->hand);
+            View::bothHand(
+                $dealer->hand,
+                $player->hand,
+                $dealer->evaluateHand(),
+                $player->evaluateHand()
+            );
             // プレイヤーの操作.
-            $isBurst = false;
+            $isSuccess = true;
             while (true) {
-                $nextOperation = $view->operation();
+                $nextOperation = View::operation();
                 if ($nextOperation === 'h') {   // ヒット.
                     echo 'Hit ' . PHP_EOL;
-                    $isBurst = $player->hit($gameUtil->pickOneCard(), true);
-                    if ($isBurst === false) {
-                        $view->playerHand($player->hand);
+                    $isSuccess = $player->hit($gameUtil->pickOneCard(), true);
+                    if ($isSuccess === true) {
+                        View::displayHand($player->hand, 'Player', $player->evaluateHand());
                         continue;
                     } else {
                         break;
                     }
-                } elseif ($nextOperation === 's') {
+                } elseif ($nextOperation === 's') { // スタンド.
                     echo 'Stand ' . PHP_EOL;
                     break;
                 } else {
                     continue;
                 }
             }
-            // ディーラーの操作（自動）.
-            // todo.
-
-            // プレイヤー、ディーラーのカード評価と結果.
-            $dealerValue = $dealer->evaluateHand();
-            $playerValue = $player->evaluateHand();
-            $isPlayerWin = $gameUtil->isPlayerWin(
-                $dealer->evaluateHand(),
-                $player->evaluateHand()
-            );
-            if ($isBurst === false) {
+            if ($isSuccess === true) {
+                $playerValue = $player->evaluateHand();
+                // ディーラーの操作（自動）.
+                $dealer->play($playerValue);
+                // ディーラーのカード評価と結果.
+                $dealerValue = $dealer->evaluateHand();
+                $isPlayerWin = $gameUtil->isPlayerWin(
+                    $dealer->evaluateHand(),
+                    $player->evaluateHand()
+                );
                 // ディーラーの裏向きのカードを表にして結果を見る.
-                $view->openBlankCard($dealer->hand);
-                $view->result($dealerValue, $playerValue, $isPlayerWin);
+                View::openBlankCard($dealer->hand);
+                View::result($dealerValue, $playerValue, $isPlayerWin);
             } else {
-                $view->burst($playerValue);
+                View::burst($playerValue);
             }
             // 配当処理.
             // todo
@@ -76,7 +80,7 @@ while (true) {
             $quitGameFlg = false;
             $continueFlg = false;
             while (true) {
-                $nextCommand = $view->isNext();
+                $nextCommand = View::isNext();
                 if ($nextCommand === 'c') {
                     $continueFlg = true;
                     break;
@@ -91,6 +95,9 @@ while (true) {
                 break;
             }
             if ($continueFlg) {
+                // 初期化処理.
+                $player = new Player();
+                $dealer = new Dealer($gameUtil);
                 continue;
             }
         }

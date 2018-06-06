@@ -12,6 +12,9 @@ use src\Man;
 class Player extends Man
 {
 
+    /**
+     * Undocumented function
+     */
     public function __construct()
     {
         parent::__construct();

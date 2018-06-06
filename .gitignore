@@ -6,3 +6,4 @@ vendor/*
 .idea.txt
 .todo.txt
 public/doc
+coverage

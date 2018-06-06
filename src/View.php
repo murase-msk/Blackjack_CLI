@@ -10,6 +10,14 @@ namespace src;
 class View
 {
     /**
+     * Undocumented function
+     */
+    public function __construct()
+    {
+        return;
+    }
+
+    /**
      * ウェルカムページの表示する
      * @return 's':ゲーム画面へ, 'q':ゲーム終了
      */
@@ -51,6 +59,8 @@ class View
      * ディーラー,プレイヤーのハンドを表示する
      * @param array ディーラーのハンド
      * @param array プレイヤーのハンド
+     * @param int ディーラーのハンド合計値
+     * @param int プレイヤーのハンド合計値
      * @return void
      */
     public static function bothHand(
@@ -69,6 +79,8 @@ class View
      * ,ハンドを表示する
      *
      * @param array $playerHand
+     * @param string プレイヤー or ディーラー
+     * @param int ハンドの合計値
      * @return void
      */
     public static function displayHand(array $hand, string $name, int $total) : void

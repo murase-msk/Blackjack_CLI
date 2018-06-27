@@ -9,6 +9,16 @@ namespace src;
  */
 class View
 {
+    /**テストコード実行中であるか */
+    static private $isTest = false;
+    /** ベット入力（テスト用） */
+    static private $testInputBet;
+    /** ゲームスタートの入力コマンド（テスト用） */
+    static private $testInputOperationWelcome;
+    /** スタンド・ヒット入力（テスト用） */
+    static private $testInputOperation;
+    /** ゲームを継続するかの入力コマンド（テスト用） */
+    static private $testInputOperationContinue;
     /**
      * Undocumented function
      */
@@ -28,7 +38,8 @@ class View
         echo 'input "s" to start game ' . PHP_EOL;
         echo 'input "q" to quit game ' . PHP_EOL;
         echo '$$$$$$$$$$$$$$$$$$$$$$$$$$' . PHP_EOL;
-        $nextOperation = trim(fgets(STDIN));
+        $nextOperation =
+            !View::$isTest ? trim(fgets(STDIN)) : View::$testInputOperationWelcome;
         return $nextOperation;
     }
 
@@ -48,10 +59,20 @@ class View
      * @param void
      * @return int ベットする金額
      */
-    public static function betOperation() : int
+    public static function betOperation(int $cash) : int
     {
-        echo 'Input Bet ';
-        $bet = trim(fgets(STDIN));
+        $bet = 0;
+        while (true) {
+            echo 'Input Bet ';
+            $bet = !View::$isTest ? trim(fgets(STDIN)) : View::$testInputBet;
+            if ($bet >0 && is_int($bet)) {
+                echo 'Your input is invalid' . PHP_EOL;
+            } elseif ($bet > $cash) {
+                echo 'Your max bet is ' . $cash . PHP_EOL;
+            } else {
+                break;
+            }
+        }
         return $bet;
     }
 
@@ -136,7 +157,8 @@ class View
         echo 's: Stand, h: Hit, e:Surrender' . PHP_EOL;
         echo '-------------' . PHP_EOL;
         echo 'Input your next command: ';
-        $nextOperation = trim(fgets(STDIN));
+        $nextOperation =
+            !View::$isTest ? trim(fgets(STDIN)) : View::$testInputOperation;
         return $nextOperation;
     }
 
@@ -203,7 +225,32 @@ class View
         echo '-------------' . PHP_EOL;
         echo '"c":Continue, "q":Quit game' . PHP_EOL;
         echo '-------------' . PHP_EOL;
-        $nextOperation = trim(fgets(STDIN));
+        $nextOperation =
+            !View::$isTest ? trim(fgets(STDIN)) : View::$testInputOperationContinue;
         return $nextOperation;
+    }
+
+    /**
+     * テストコード用のパラメータセット
+     */
+    public static function setTestParam(
+        int $testInputBet,
+        string $testInputOperationWelcome,
+        string $testInputOperation,
+        string $testInputOperationContinue
+    ) : void {
+    // /** ベット入力（テスト用） */
+    // /** ゲームスタートの入力コマンド（テスト用） */
+    // /** スタンド・ヒット入力（テスト用） */
+    // /** ゲームを継続するかの入力コマンド（テスト用） */
+
+    /**テストコード実行中であるか */
+        View::$isTest = true;
+        /**テストコード用プロパティー */
+        View::$testInputBet = $testInputBet;
+        View::$testInputOperationWelcome = $testInputOperationWelcome;
+        View::$testInputOperation = $testInputOperation;
+        View::$testInputOperationContinue = $testInputOperationContinue;
+        return;
     }
 }

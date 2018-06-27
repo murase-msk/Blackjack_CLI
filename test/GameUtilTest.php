@@ -27,7 +27,7 @@ class GameUtilTest extends TestCase
     public function pickOneCard() : void
     {
         $gameUtil = new GameUtil();
-        // ハートの２となる乱数.
+        // ハートの２となる乱数(乱数固定).
         srand(5);
         $pickedCard = $gameUtil->pickOneCard();
 //        var_dump($pickedCard);

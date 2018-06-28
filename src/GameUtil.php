@@ -119,16 +119,16 @@ class GameUtil
      *
      * @param integer $playerValue
      * @param integer $dealerValue
-     * @return boolean -1:ディーラー勝利, 1:プレイヤー勝利, 0:引き分け
+     * @return string dealer:ディーラー勝利, player:プレイヤー勝利, draw:引き分け
      */
-    public function isPlayerWin(int $dealerValue, int $playerValue) : int
+    public function whoIsWin(int $dealerValue, int $playerValue) : string
     {
         if ($dealerValue > $playerValue) {
-            return -1;
+            return 'dealer';
         } elseif ($dealerValue < $playerValue) {
-            return 1;
+            return 'player';
         } else {
-            return 0;
+            return 'draw';
         }
     }
 }

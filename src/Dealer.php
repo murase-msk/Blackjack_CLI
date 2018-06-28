@@ -36,8 +36,8 @@ class Dealer extends Man
         while ($this->evaluateHand() < $playerValue) {
             echo 'Hit ' . PHP_EOL;
             $isSuccess = $this->hit($this->gameUtil->pickOneCard(), true);
+            View::displayHand($this->hand, 'Dealer', $this->evaluateHand());
             if ($isSuccess === true) {
-                View::displayHand($this->hand, 'Dealer', $this->evaluateHand());
                 continue;
             } elseif ($isSuccess === false) {
                 break;

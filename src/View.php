@@ -33,6 +33,9 @@ class View
      */
     public static function welcomePage() : string
     {
+        if (!View::$isTest) {
+            echo exec('clear');
+        }
         echo '$$$$$$$$$$$$$$$$$$$$$$$$$$' . PHP_EOL;
         echo 'Welcome to Blackjack Game' . PHP_EOL;
         echo 'input "s" to start game ' . PHP_EOL;
@@ -51,6 +54,9 @@ class View
      */
     public static function cash(int $cash) : void
     {
+        if (!View::$isTest) {
+            echo exec('clear');
+        }
         echo 'Your cash: ' . $cash . PHP_EOL;
     }
 
@@ -65,9 +71,9 @@ class View
         while (true) {
             echo 'Input Bet ';
             $bet = !View::$isTest ? trim(fgets(STDIN)) : View::$testInputBet;
-            if ($bet >0 && is_int($bet)) {
+            if (!ctype_digit($bet)) {
                 echo 'Your input is invalid' . PHP_EOL;
-            } elseif ($bet > $cash) {
+            } elseif (intval($bet) > $cash) {
                 echo 'Your max bet is ' . $cash . PHP_EOL;
             } else {
                 break;
@@ -197,7 +203,7 @@ class View
      * @param integer $result
      * @return void
      */
-    public static function result(int $dealerValue, int $playerValue, int $result) : void
+    public static function result(int $dealerValue, int $playerValue, string $result) : void
     {
         if ($dealerValue === -1) {
             $dealerValue = 'Burst';
@@ -205,9 +211,9 @@ class View
             $playerValue = 'Burst';
         }
         echo 'Dealer:' . $dealerValue . ' Plauer: ' . $playerValue . PHP_EOL;
-        if ($result === -1) {
+        if ($result === 'dealer') {
             echo 'Dealer Win' . PHP_EOL;
-        } elseif ($result === 1) {
+        } elseif ($result === 'player') {
             echo 'Player Win' . PHP_EOL;
         } else {
             echo 'Draw' . PHP_EOL;

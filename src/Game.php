@@ -37,8 +37,8 @@ class Game
                 // キャッシュ表示.
                 View::cash($this->player->cash);
                 // ベット処理.
-                // $this->player->bet = View::betOperation($this->player->cash);
-                // $this->player->cash -= $this->player->bet;
+                $this->player->bet = View::betOperation($this->player->cash);
+                $this->player->cash -= $this->player->bet;
                 // ディーラーは１枚表１枚裏、プレイヤーは２枚とも表.
                 $this->dealer->receiveOneCard($this->gameUtil->pickOneCard(), true);
                 $this->dealer->receiveOneCard($this->gameUtil->pickOneCard(), false);
@@ -77,18 +77,19 @@ class Game
                     $this->dealer->play($playerValue);
                     // ディーラーのカード評価と結果.
                     $dealerValue = $this->dealer->evaluateHand();
-                    $isPlayerWin = $this->gameUtil->isPlayerWin(
+                    $whoIsWin = $this->gameUtil->whoIsWin(
                         $this->dealer->evaluateHand(),
                         $this->player->evaluateHand()
                     );
                     // ディーラーの裏向きのカードを表にして結果を見る.
                     View::openBlankCard($this->dealer->hand);
-                    View::result($dealerValue, $playerValue, $isPlayerWin);
+                    View::result($dealerValue, $playerValue, $whoIsWin);
                 } else {
                     View::burst($playerValue);
                 }
                 // 配当処理.
                 // todo
+                $this->player->returnMoney($whoIsWin);
 
                 // コンティニュー処理.
                 $quitGameFlg = false;
@@ -109,9 +110,8 @@ class Game
                     break;
                 }
                 if ($continueFlg) {
-                    // 初期化処理.
-                    $this->player = new Player();
-                    $this->dealer = new Dealer($this->gameUtil);
+                    $this->player->resetHand();
+                    $this->dealer->resetHand();
                     continue;
                 }
             }

@@ -87,4 +87,15 @@ class Man
         }
         return $handValue;
     }
+
+    /**
+     * ハンドをリセットする
+     *
+     * @return void
+     */
+    public function resetHand() : void
+    {
+        $this->hand = array();
+        $this->isFaceUp = array();
+    }
 }

@@ -48,8 +48,17 @@ class Player extends Man
     /**
      * ベット金の処理
      */
-    public function returnMoney() : void
+    public function returnMoney(string $whoIsWin) : void
     {
+        if ($whoIsWin === 'player') {
+            $this->cash += $this->bet*2;
+        } elseif ($whoIsWin === 'dealer') {
+        } elseif ($whoIsWin === 'draw') {
+            $this->cash += $this->bet;
+            return;
+        } else {
+            throw new Exception('エラー');
+        }
         return;
     }
 }

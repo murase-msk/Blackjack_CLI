@@ -39,7 +39,7 @@ input "s" to start game
 input "q" to quit game 
 $$$$$$$$$$$$$$$$$$$$$$$$$$
 Your cash: 100
--------------
+Input Bet -------------
 Dealer:heart:2, blank
 Player:diamond:5, club:J (total 15)
 -------------
@@ -72,7 +72,7 @@ EOF;
         // /** ゲームスタートの入力コマンド（テスト用） */
         // /** スタンド・ヒット入力（テスト用） */
         // /** ゲームを継続するかの入力コマンド（テスト用） */
-        View::setTestParam(10, 's', 's', 'q');
+        View::setTestParam('10', 's', 's', 'q');
         $gameUtil = new GameUtil();
         $player = new Player();
         $dealer = new Dealer($gameUtil);
@@ -100,7 +100,7 @@ input "s" to start game
 input "q" to quit game 
 $$$$$$$$$$$$$$$$$$$$$$$$$$
 Your cash: 100
--------------
+Input Bet -------------
 Dealer:heart:2, blank
 Player:diamond:5, club:J (total 15)
 -------------
@@ -116,7 +116,9 @@ s: Stand, h: Hit, e:Surrender
 -------------
 Input your next command: Hit 
 Your hand is burst
-Player: -1
+-------------
+Player: total burst :diamond:5, club:J, spade:4, spade:8
+-------------
 -------------
 "c":Continue, "q":Quit game
 -------------
@@ -129,7 +131,7 @@ EOF;
         // /** ゲームスタートの入力コマンド（テスト用） */
         // /** スタンド・ヒット入力（テスト用） */
         // /** ゲームを継続するかの入力コマンド（テスト用） */
-        View::setTestParam(10, 's', 'h', 'q');
+        View::setTestParam('10', 's', 'h', 'q');
         $gameUtil = new GameUtil();
         $player = new Player();
         $dealer = new Dealer($gameUtil);

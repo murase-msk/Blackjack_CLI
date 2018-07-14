@@ -55,9 +55,9 @@ class GameUtilTest extends TestCase
     public function isPlayerWin() : void
     {
         $gameUtil = new GameUtil();
-        $this->assertEquals(-1, $gameUtil->isPlayerWin(1, -1));
-        $this->assertEquals(1, $gameUtil->isPlayerWin(1, 23));
-        $this->assertEquals(0, $gameUtil->isPlayerWin(23, 23));
+        $this->assertEquals('dealer', $gameUtil->whoIsWin(1, -1));
+        $this->assertEquals('player', $gameUtil->whoIsWin(1, 23));
+        $this->assertEquals('draw', $gameUtil->whoIsWin(23, 23));
         return;
     }
 }

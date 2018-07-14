@@ -13,8 +13,14 @@ use src\GameUtil;
  */
 class Dealer extends Man
 {
+    /** GameUtilクラスのインスタンス */
     private $gameUtil;
 
+    /**
+     * コンストラクタ
+     *
+     * @param GameUtil $gameUtil
+     */
     public function __construct(GameUtil $gameUtil)
     {
         parent::__construct();
@@ -24,6 +30,7 @@ class Dealer extends Man
     /**
      * ディーラーの操作
      *
+     * @int プレイヤーのハンド合計値
      * @return void
      */
     public function play(int $playerValue)

@@ -72,6 +72,7 @@ class Game
                     }
                 }
                 $playerValue = $this->player->evaluateHand();
+                $whoIsWin = 'dealer';
                 if ($isSuccess === true) {
                     // ディーラーの操作（自動）.
                     $this->dealer->play($playerValue);
@@ -85,7 +86,7 @@ class Game
                     View::openBlankCard($this->dealer->hand);
                     View::result($dealerValue, $playerValue, $whoIsWin);
                 } else {
-                    View::burst($playerValue);
+                    View::burst($this->player->hand, 'Player', $this->player->evaluateHand());
                 }
                 // 配当処理.
                 // todo

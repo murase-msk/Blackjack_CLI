@@ -11,12 +11,15 @@ use src\Man;
  */
 class Player extends Man
 {
+    /** @var int デフォルトの所持金 */
     private const DEFAULT_CASH = 100;
+    /** @var int 所持金 */
     public $cash = 0;
+    /** @var int 現在のベット金額 */
     public $bet = 0;
 
     /**
-     * Undocumented function
+     * コンストラクタ
      */
     public function __construct()
     {
@@ -25,28 +28,20 @@ class Player extends Man
     }
 
     // /**
-    //  * キャッシュをベットする
+    //  * サレンダーする
     //  *
     //  * @return void
     //  */
-    // public function bet(int $playerBet) : boolean
+    // public function surrender() : void
     // {
-    //     $this->bet = $playerBet;
-    //     $this->cash -= $playerBet;
+    //     return;
     // }
 
     /**
-     * サレンダーする
+     * 配当処理
      *
+     * @param string $whoIsWin　誰が勝ったか('player' or 'dealer' or 'draw')
      * @return void
-     */
-    public function surrender() : void
-    {
-        return;
-    }
-
-    /**
-     * ベット金の処理
      */
     public function returnMoney(string $whoIsWin) : void
     {

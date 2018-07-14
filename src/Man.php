@@ -15,9 +15,14 @@ class Man
      *          'number': int 数字
      *          'isFaceUp': bool 表であるか
      *          }
-     *      } 手持ちのカード*/
+     *      } 手持ちのカード
+     * @see GameUtil
+     */
     public $hand;
     
+    /**
+     * コンストラクタ
+     */
     public function __construct()
     {
         $this->hand = array();

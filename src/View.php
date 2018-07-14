@@ -19,13 +19,6 @@ class View
     static private $testInputOperation;
     /** ゲームを継続するかの入力コマンド（テスト用） */
     static private $testInputOperationContinue;
-    /**
-     * Undocumented function
-     */
-    public function __construct()
-    {
-        return;
-    }
 
     /**
      * ウェルカムページの表示する
@@ -67,7 +60,7 @@ class View
      */
     public static function betOperation(int $cash) : int
     {
-        $bet = 0;
+        $bet = '';
         while (true) {
             echo 'Input Bet ';
             $bet = !View::$isTest ? trim(fgets(STDIN)) : View::$testInputBet;
@@ -112,6 +105,7 @@ class View
      */
     public static function displayHand(array $hand, string $name, int $total) : void
     {
+        $total = $total === -1 ? 'burst' : $total;
         echo '-------------' . PHP_EOL;
         echo '' . $name . ': total ' . $total . ' :' . View::returnHandText($hand) . PHP_EOL;
         echo '-------------' . PHP_EOL;
@@ -186,13 +180,12 @@ class View
     /**
      * バーストとなった画面
      *
-     * @param integer $playerValue プレイヤーのハンドの合計値
      * @return void
      */
-    public static function burst(int $playerValue) : void
+    public static function burst(array $hand, string $name, int $total) : void
     {
         echo 'Your hand is burst' . PHP_EOL;
-        echo 'Player: ' . $playerValue . PHP_EOL;
+        View::displayHand($hand, $name, $total);
     }
 
     /**
@@ -240,7 +233,7 @@ class View
      * テストコード用のパラメータセット
      */
     public static function setTestParam(
-        int $testInputBet,
+        string $testInputBet,
         string $testInputOperationWelcome,
         string $testInputOperation,
         string $testInputOperationContinue

@@ -17,4 +17,8 @@ Hit・・・新たにカードを受け取る
 
 Surrender・・・掛け金の半分を放棄してプレイを降りる
 
-## 仕様
+## Requirement
+
+PHP 7.2.5
+
+Composer 1.6.4
